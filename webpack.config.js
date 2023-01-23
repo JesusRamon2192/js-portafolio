@@ -22,6 +22,10 @@ module.exports = {
       {
         // Test declara que extensión de archivos aplicara el loader
         test: /\m?.js$/,
+        //expresion regular
+        //cual es elemento que vamos a tenr
+        //Nosotros podemos usar el use con un objeto o un arreglo segun la configuracion 
+        // del plugin
         // Use es un arreglo u objeto donde dices que loader aplicaras
         use: {
           loader: "babel-loader"
@@ -40,6 +44,9 @@ module.exports = {
   },
   //Seccion de plugins
   plugins: [
+    //hacemos una instancia de lo que definimos en el inicio del archivo
+      // le anadimos por parametro un objeto donde vamos a tener las 
+        //configuraciones que le vamos anadir a nuestro plugin
     new HtmlWebpackPlugin({ 
       //Configuracion del plugin
       inject: true,
