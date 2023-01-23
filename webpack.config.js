@@ -1,4 +1,6 @@
 const path = require('path');
+const htmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   // Entry nos permite decir el punto de entrada de nuestra aplicación
@@ -29,4 +31,16 @@ module.exports = {
       }
     ]
   },
+  //Seccion de plugins
+  plugins: [
+    new HtmlWebpackPlugin({ 
+      //Configuracion del plugin
+      inject: true,
+      //Inyecta el Bundle al template HTML
+      template: './public/index.html',
+      //La ruta al template HTML
+      filename:'./index.html'
+      //Nombre al final del archivo
+    })
+  ]
 }
