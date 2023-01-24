@@ -14,6 +14,7 @@ module.exports = {
     // filename le pone el nombre al archivo final
     filename: "main.js",
     assetModuleFilename: 'assets/images/[hash][ext][query]'
+    //Esta instrucción hace que webpack le agregue un hash ( un hash es una serie de caracteres aleatorios) y su extencion por medio de esas variables en el string
   },
   resolve: {
     // Aqui ponemos las extensiones que tendremos en nuestro proyecto para webpack los lea
@@ -52,11 +53,22 @@ module.exports = {
           loader: 'url-loader',
           options: {
             limit: 10000,
+            // O LE PASAMOS UN BOOLEANOS TRUE O FALSE
+            // Habilita o deshabilita la transformación de archivos en base64.
             mimetype: "application/font-woff",
+            // Especifica el tipo MIME con el que se alineará el archivo. 
+            // Los MIME Types (Multipurpose Internet Mail Extensions)
+            // son la manera standard de mandar contenido a través de la red.
             name: "[name].[ext]",
+            // EL NOMBRE INICIAL DEL ARCHIVO + SU EXTENSIÓN
+            // PUEDES AGREGARLE [name]hola.[ext] y el output del archivo seria 
+            // ubuntu-regularhola.woff
             outputPath: "./assets/fonts/",
+            // EL DIRECTORIO DE SALIDA (SIN COMPLICACIONES)
             publicPath: "./assets/fonts/",
+            // EL DIRECTORIO PUBLICO (SIN COMPLICACIONES)
             esModule: false,
+            // AVISAR EXPLICITAMENTE SI ES UN MODULO
           },
         }
       }
