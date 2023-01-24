@@ -2,6 +2,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   // Entry nos permite decir el punto de entrada de nuestra aplicación
@@ -12,13 +15,19 @@ module.exports = {
     // Con path.resolve podemos decir dónde va estar la carpeta y la ubicación del mismo
     path: path.resolve(__dirname, "dist"),
     // filename le pone el nombre al archivo final
-    filename: "main.js",
+    filename: "[name].[contenthash].js",
     assetModuleFilename: 'assets/images/[hash][ext][query]'
     //Esta instrucción hace que webpack le agregue un hash ( un hash es una serie de caracteres aleatorios) y su extencion por medio de esas variables en el string
   },
   resolve: {
     // Aqui ponemos las extensiones que tendremos en nuestro proyecto para webpack los lea
-    extensions: [".js"]
+    extensions: [".js"],
+    alias: {
+      '@utils': path.resolve(__dirname, 'src/utils/'),
+      '@templates': path.resolve(__dirname, 'src/templates/'),
+      '@styles': path.resolve(__dirname, 'src/styles/'),
+      '@images': path.resolve(__dirname, 'src/assets/images/'),
+    }
   },
   module: {
     rules: [
@@ -59,7 +68,7 @@ module.exports = {
             // Especifica el tipo MIME con el que se alineará el archivo. 
             // Los MIME Types (Multipurpose Internet Mail Extensions)
             // son la manera standard de mandar contenido a través de la red.
-            name: "[name].[ext]",
+            name: "[name].[contenthash].[ext]",
             // EL NOMBRE INICIAL DEL ARCHIVO + SU EXTENSIÓN
             // PUEDES AGREGARLE [name]hola.[ext] y el output del archivo seria 
             // ubuntu-regularhola.woff
@@ -88,7 +97,9 @@ module.exports = {
       filename:'./index.html'
       //Nombre al final del archivo
     }),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({
+      filename: 'assets/[name].[contenthash].css'
+    }),
     new CopyPlugin({
       patterns: [
         {
@@ -97,5 +108,14 @@ module.exports = {
         }
       ]
     }),
-  ]
+    new Dotenv(),
+    
+  ],
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new CssMinimizerPlugin(),
+      new TerserPlugin(),
+    ]
+  }
 }
