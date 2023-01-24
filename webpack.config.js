@@ -12,7 +12,8 @@ module.exports = {
     // Con path.resolve podemos decir dónde va estar la carpeta y la ubicación del mismo
     path: path.resolve(__dirname, "dist"),
     // filename le pone el nombre al archivo final
-    filename: "main.js"
+    filename: "main.js",
+    assetModuleFilename: 'assets/images/[hash][ext][query]'
   },
   resolve: {
     // Aqui ponemos las extensiones que tendremos en nuestro proyecto para webpack los lea
@@ -44,6 +45,20 @@ module.exports = {
       {
         test: /\.png/,
         type: 'asset/resource'
+      },
+      {
+        test: /\.(woff|woff2)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+            mimetype: "application/font-woff",
+            name: "[name].[ext]",
+            outputPath: "./assets/fonts/",
+            publicPath: "./assets/fonts/",
+            esModule: false,
+          },
+        }
       }
     ]
   },
