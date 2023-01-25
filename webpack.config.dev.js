@@ -18,7 +18,6 @@ module.exports = {
     //Esta instrucción hace que webpack le agregue un hash ( un hash es una serie de caracteres aleatorios) y su extencion por medio de esas variables en el string
   },
   mode: 'development',
-  watch: true,
   resolve: {
     // Aqui ponemos las extensiones que tendremos en nuestro proyecto para webpack los lea
     extensions: [".js"],
@@ -110,4 +109,12 @@ module.exports = {
     }),
     new Dotenv(),
   ],
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    compress: true,
+    port: 3006,
+    open: true,
+  }
 }
