@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   // Entry nos permite decir el punto de entrada de nuestra aplicación
@@ -19,6 +19,7 @@ module.exports = {
     //Esta instrucción hace que webpack le agregue un hash ( un hash es una serie de caracteres aleatorios) y su extencion por medio de esas variables en el string
   },
   mode: 'development',
+  devtool: 'source-map',
   resolve: {
     // Aqui ponemos las extensiones que tendremos en nuestro proyecto para webpack los lea
     extensions: [".js"],
